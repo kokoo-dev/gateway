@@ -4,6 +4,19 @@ server:
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - 'http://localhost:9999'
+            allow-credentials: true
+            allowed-headers: '*'
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
       default-filters:
         - name: GlobalFilter
           args:
