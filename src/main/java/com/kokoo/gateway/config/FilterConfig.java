@@ -20,11 +20,13 @@ public class FilterConfig {
     public RouteLocator routeGateway(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/user/**")
-                        .filters(f -> f.filter(getGlobalFilter()))
+                        .filters(f -> f.rewritePath("/user/(?<path>.*)", "/external/user/${path}")
+                                .filters(getGlobalFilter()))
                         .uri("http://localhost:8081/")
                 )
                 .route(r -> r.path("/product/**")
-                        .filters(f -> f.filters(getGlobalFilter(), getTokenFilter()))
+                        .filters(f -> f.rewritePath("/product/(?<path>.*)", "/external/product/${path}")
+                                .filters(getGlobalFilter(), getTokenFilter()))
                         .uri("http://localhost:8082/")
                 )
                 .build();
