@@ -33,7 +33,7 @@ public class TokenFilter extends AbstractGatewayFilterFactory<TokenFilter.Config
 
             //Token Validate
             HttpHeaders httpHeaders = request.getHeaders();
-            List<String> accessToken = httpHeaders.get("X-Access-Token");
+            List<String> accessToken = httpHeaders.get(HttpHeaders.AUTHORIZATION);
             if (ObjectUtils.isEmpty(accessToken)) {
 
             }
