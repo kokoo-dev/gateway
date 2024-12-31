@@ -37,3 +37,17 @@ spring:
           filters:
             - TokenFilter
             - RewritePath=/product/(?<path>.*), /external/product/$\{path}
+            - name: CircuitBreaker
+              args:
+                name: commonCircuitBreaker
+                fallbackUri: forward:/fallback
+                statusCodes:
+                  - 500
+
+# https://resilience4j.readme.io/docs/circuitbreaker#create-and-configure-a-circuitbreaker
+resilience4j:
+  timelimiter:
+    configs:
+      default:
+        cancelRunningFuture: false
+        timeoutDuration: 5s
